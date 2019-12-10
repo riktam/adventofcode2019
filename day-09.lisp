@@ -59,7 +59,7 @@
       (setf (gethash i hash)
 	    (aref vec i)))))
 
-(defun intcode9 (&key (memory (copy-vec *input-day-05*)) (input 1))
+(defun intcode9 (&key (memory (copy-vec *input-day-05*)) (input ()))
   (let ((ip 0)
 	(rp 0)
 	(output)
@@ -69,15 +69,12 @@
 	       (ecase mod
 		 (0 (gethash (gethash ip mem 0) mem 0))
 		 (1 (gethash ip mem 0))
-		 (2 (gethash (+ rp (gethash ip mem)) mem 0))
-		 ))
+		 (2 (gethash (+ rp (gethash ip mem)) mem 0))))
 	     ((setf mem) (val ip &optional (mod 1))
 	       (ecase mod
 		 (0 (setf (gethash (gethash ip mem ) mem) val))
 		 (1 (setf (gethash ip mem) val))
-		 (2 (setf (gethash (+ rp (gethash ip mem)) mem) val))
-		 ;;(2 (setf (gethash (+ rp 0) mem) val))
-		 ))
+		 (2 (setf (gethash (+ rp (gethash ip mem)) mem) val))))
 	     (decode-opcode (int)
 	       "ABCDE -> (DE C B A)"
 	       (let ((str (format nil "~5,'0d" int)))
@@ -98,7 +95,6 @@
 	       (setf (mem (ip 1) mod1) (pop input))
 	       (ip 2))
 	     (opcode4 (mod1)
-	       (format t "output: ~A~&" (mem (ip 1) mod1))
 	       (ecase mod1
 		 ((0 1) (push (mem (ip 1) mod1) output))
 		 (2 (push (mem (ip 1) mod1) output)))
@@ -115,13 +111,11 @@
 	       (gen-opcode #'op= mod1 mod2 mod3))
 	     (opcode9 (mod1)
 	       (incf rp (mem (ip 1) mod1))
-	       (ip 2))
-	     )
+	       (ip 2)))
       (do ()
 	  (())
 	(destructuring-bind (opcode mod1 mod2 mod3)
 	    (decode-opcode (mem ip))
-	  ;;(format t "~A~&")
 	  (setf ip
 		(ecase opcode
 		  (1 (opcode1 mod1 mod2 mod3))
@@ -139,10 +133,10 @@
 
 
 (defun solution-day09-1 ()
-  )
+  (intcode9 :memory *input-day-09* :input '(1)))
 
 (defun solution-day09-2 ()
-  )
+  (intcode9 :memory *input-day-09* :input '(2)))
 
 (defun solve-day09 ()
   (format t "Answer for puzzle 1 of day 9: ~A~&"
