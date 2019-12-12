@@ -17,11 +17,11 @@
       (when (funcall fn (row-major-aref array i))
 	(incf count)))))
 
-(defun print-sol (arr)
+(defun print-arr (arr)
   (with-output-to-string (stream)
     (format stream "~%")
-    (dotimes (i 6)
-      (dotimes (j 25)
+    (dotimes (i (array-dimension arr 0))
+      (dotimes (j (array-dimension arr 1))
 	(format stream "~a" (if (zerop (aref arr i j)) #\space #\# )))
       (format stream "~&"))))
 
@@ -56,7 +56,7 @@
 	    (find-if (lambda (x) (/= x 2))
 		     (mapcar (lambda (a) (row-major-aref a i))
 			     layers))))
-    (print-sol out)))
+    (print-arr out)))
 
 (defun solve-day08 ()
   (format t "Answer for puzzle 1 of day 8: ~A~&"
