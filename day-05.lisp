@@ -43,8 +43,9 @@
 
 (defun decode-opcode (int)
   "ABCDE -> (DE C B A)"
-  (let ((str (format nil "~4,'0d" int)))
-    (list (parse-integer str :start 2)
+  (let ((str (format nil "~5,'0d" int)))
+    (list (parse-integer str :start 3)
+	  (parse-integer str :start 2 :end 3)
 	  (parse-integer str :start 1 :end 2)
 	  (parse-integer str :start 0 :end 1))))
 
@@ -91,8 +92,9 @@
 	       (gen-opcode #'op= mod1 mod2)))
       (do ()
 	  (())
-	(destructuring-bind (opcode mod1 mod2)
+	(destructuring-bind (opcode mod1 mod2 mod3)
 	    (decode-opcode (mem ip))
+	  (declare (ignorable mod3))
 	  (setf ip
 		(case opcode
 		  (1 (opcode1 mod1 mod2))

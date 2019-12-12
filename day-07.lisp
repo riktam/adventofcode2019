@@ -59,8 +59,9 @@
 	       (gen-opcode #'op= mod1 mod2)))
       (do ()
 	  (())
-	(destructuring-bind (opcode mod1 mod2)
+	(destructuring-bind (opcode mod1 mod2 mod3)
 	    (decode-opcode (mem ip))
+	  (declare (ignorable mod3))
 	  (setf ip
 		(case opcode
 		  (1 (opcode1 mod1 mod2))
