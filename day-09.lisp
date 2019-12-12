@@ -59,7 +59,7 @@
       (setf (gethash i hash)
 	    (aref vec i)))))
 
-(defun intcode9 (&key (memory (copy-vec *input-day-05*)) (input ()))
+(defun intcode9 (&key (memory *input-day-09*) input)
   (let ((ip 0)
 	(rp 0)
 	(output)
@@ -133,10 +133,10 @@
 
 
 (defun solution-day09-1 ()
-  (intcode9 :memory *input-day-09* :input '(1)))
+  (first (intcode9 :input '(1))))
 
 (defun solution-day09-2 ()
-  (intcode9 :memory *input-day-09* :input '(2)))
+  (first (intcode9 :input '(2))))
 
 (defun solve-day09 ()
   (format t "Answer for puzzle 1 of day 9: ~A~&"
