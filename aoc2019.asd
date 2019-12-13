@@ -4,7 +4,7 @@
   :description "Advent of code 2019 submission http://adventofcode.com/2019/"
   :author "Riktam <ruirrs@gmail.com>"
   :license  "What license?"
-  :version "2019.12.12"
+  :version "2019.12.13"
   :serial t
   :components ((:file "package")
                (:file "aoc2019")
@@ -20,4 +20,5 @@
 	       (:file "day-10")
 	       (:file "day-11")
 	       (:file "day-12")
+	       (:file "day-13")
 	       ))
