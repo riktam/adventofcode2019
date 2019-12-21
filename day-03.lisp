@@ -59,7 +59,8 @@ L194 U723 L282 D966 R246 U447 R966 U346 L636 D9 L480 D35 R96))
   (cdr pos))
 
 (defun pos= (pos1 pos2)
-  (and (= (car pos1) (car pos2))
+  (and pos1 pos2
+       (= (car pos1) (car pos2))
        (= (cdr pos1) (cdr pos2))))
 
 (defun manhattan-distance (pos1 pos2)
